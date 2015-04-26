@@ -1,0 +1,21 @@
+{
+  "name": "compute-webprog",
+  "version": "1",
+  "homepage": "https://github.com/nuttt/compute-webprog",
+  "authors": [
+    "Nuttapon Pattanavijit <nuttt.p@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.3",
+    "react": "~0.13.2",
+    "bootstrap": "~3.3.4"
+  }
+}

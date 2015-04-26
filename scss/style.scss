@@ -1,0 +1,67 @@
+body {
+  
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+@mixin clear {
+  display: block;
+  content: "";
+  clear: both;
+}
+
+#turing-app {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+
+}
+
+nav {
+  width: 100%;
+  height: 50px;
+  background-color: rgba(0,0,0,0.8);
+  color: white;
+
+  &:after {
+    @include clear;
+  }
+}
+
+#draw-canvas {
+  background: url('../img/tiny_grid.png') repeat;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: calc(100% - 50px - 50px);
+}
+
+#toolbar {
+  width: 100%;
+  height: 50px;
+  background-color: rgba(0,0,0,0.8);
+  color: white;
+
+  &:after{
+    @include clear;
+  }
+}
+
+.state {
+  width: 50px;
+  height: 50px;
+  background-color: #f00;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 25px;
+  display: block;
+}
