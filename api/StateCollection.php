@@ -1,6 +1,6 @@
 <?php
 
-class States {
+class StateCollection {
     private $states;
 
     public function __construct() {

@@ -8,9 +8,9 @@
 
 ## APIs
 
-### `GET apis/challanges` - Get problems list
+### `GET apis/challenges` - Get problems list
 
-### `GET apis/challanges?id=1` - Get problem
+### `GET apis/challenges?id=1` - Get problem
 
 ### `POST apis/submit` - Submit challange
 
@@ -22,8 +22,7 @@
 			states: [
 				{
 					id: "2ajdkci23",
-					type: "<state, accept, reject, start, block>",
-					blockType: "<...>"
+					type: "<state, accepted, rejected, start>"
 				},
 				{...}
 			], 
@@ -41,11 +40,18 @@
 
 **Response**
 
+Case: Right
+	{
+		status: right
+	}
+
+Case: Wrong
 	{
 		id: 1,
 		input: "0111010101 110101110",
-		expected: "<1010101011101, accept, reject>",
-		actual: "<010101011101, accept, reject, loop>"
+		expected: "<1010101011101, accepted, rejected>",
+		actual: "<010101011101, accepted, rejected, loop>",
+		status: wrong
 	}
 
 ## PHP Classes
@@ -54,7 +60,7 @@
 
 ## Databases
 
-### compute_challanges
+### compute_challenges
 
 - id: integer, auto_incr (PK)
 - name: string

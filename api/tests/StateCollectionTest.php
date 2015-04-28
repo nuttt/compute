@@ -1,9 +1,9 @@
 <?php
 
-class StatesTest extends PHPUnit_Framework_TestCase {
+class StateCollectionTest extends PHPUnit_Framework_TestCase {
 
     public function testAddState() {
-        $states = new States();
+        $states = new StateCollection();
         $states->addState(1, "start");
         $states->addState(2, "state");
         $states->addState(3, "accepted");
@@ -13,7 +13,7 @@ class StatesTest extends PHPUnit_Framework_TestCase {
     }
 
     public function testFind() {
-        $states = new States();
+        $states = new StateCollection();
         $states->addState(2, "state");
         $states->addState(3, "accepted");
         $states->addState(11, "start");
@@ -31,7 +31,7 @@ class StatesTest extends PHPUnit_Framework_TestCase {
     }
 
     public function testFindStartState() {
-        $states = new States();
+        $states = new StateCollection();
         $states->addState(2, "state");
         $states->addState(3, "accepted");
         $states->addState(11, "start");

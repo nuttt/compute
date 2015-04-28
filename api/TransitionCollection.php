@@ -1,6 +1,6 @@
 <?php
 
-class Transitions {
+class TransitionCollection {
     private $transitions;
 
     public function __construct() {
