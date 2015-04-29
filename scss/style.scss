@@ -42,6 +42,25 @@ nav {
   overflow: hidden;
   width: 100%;
   height: calc(100% - 50px - 50px);
+
+  .state {
+    width: 50px;
+    height: 50px;
+    background-color: rgba(236, 240, 241, 0.7);
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 25px;
+    border: #3498db 5px solid;
+    display: block;
+    z-index: 100;
+  }
+
+  .transition {
+    z-index: 90;
+    position: absolute;
+  }
+
 }
 
 #toolbar {
@@ -55,13 +74,20 @@ nav {
   }
 }
 
-.state {
-  width: 50px;
-  height: 50px;
-  background-color: #f00;
-  position: absolute;
-  top: 0;
-  left: 0;
-  border-radius: 25px;
-  display: block;
+#config-pane {
+  width: 300px;
+  position: fixed;
+  top: 75px;
+  right: 25px;
+  padding: 10px;
+  background-color: rgba(236, 240, 241, 0.5);
+  border-radius: 10px;
+  border: #95a5a6 4px solid;
+  z-index: 200;
 }
+
+.selected {
+  -webkit-box-shadow: 0 0 20px 0 rgba(0,255,255,1);
+  box-shadow: 0 0 20px 0 rgba(0,255,255,1);
+}
+

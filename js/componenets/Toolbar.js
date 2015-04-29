@@ -3,7 +3,9 @@ var Toolbar = React.createClass({
     tools: [
       'Add State',
       'Add Transition',
-      'Move'
+      'Move',
+      'Delete',
+      'Config'
     ]
   },
 
@@ -24,7 +26,8 @@ var Toolbar = React.createClass({
         <div className="left">
           {tools}
         </div>
-        <div className="right"></div>
+        <div className="right">
+        </div>
       </div>
     );
   },
