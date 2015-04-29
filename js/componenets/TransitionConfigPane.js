@@ -1,7 +1,7 @@
 var TransitionConfigPane = React.createClass({
 
-  stateTypeChange: function() {
-    console.log("stateTypeChange");
+  onUpdateConfig: function(config) {
+    this.props.onUpdateConfig({config: config});
   },
 
   render: function() {
@@ -9,8 +9,11 @@ var TransitionConfigPane = React.createClass({
     return (
       <form>
         <div class="form-group">
-          <label for="state-type">Transition List (Read, Write, Move)</label>
-          <TransitionConfigList />
+          <label for="state-type">Transition List (Input, Write, Direction)</label>
+          <TransitionConfigList
+            selectElement={this.props.selectElement}
+            onUpdateConfig={this.onUpdateConfig}
+          />
         </div>
       </form>
     );

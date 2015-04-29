@@ -26,11 +26,25 @@ var Transition = React.createClass({
 
     var tan = dy / dx;
     var angle = Math.atan(tan);
+    var perpendAngle = angle + Math.PI / 2.0;
+    var shiftMargin = 10;
+    var shiftX = Math.cos(perpendAngle) * shiftMargin;
+    var shiftY = Math.sin(perpendAngle) * shiftMargin;
+
+    if (this.props.key1 > this.props.key2) {
+      shiftX = -shiftX;
+      shiftY = -shiftY;
+    }
+    else if(this.props.key1 == -1 && this.props.key2 == -1) {
+      shiftX = 0;
+      shiftY = 0;
+    }
+
     var ox = stateRadius * Math.cos(angle);
     var oy = stateRadius * Math.sin(angle);
 
     var x1, y1, x2, y2;
-    if ((x1a <= x2a) || (x1a <= x2a)) {
+    if (x1a <= x2a) {
       x1 = x1a + ox;
       x2 = x2a - ox;
     } else {
@@ -45,6 +59,11 @@ var Transition = React.createClass({
       y1 = y1a - oy;
       y2 = y2a + oy;
     }
+
+    x1 += shiftX;
+    x2 += shiftX;
+    y1 += shiftY;
+    y2 += shiftY;
 
     var minX = Math.min(x1, x2);
     var minY = Math.min(y1, y2);
@@ -70,11 +89,11 @@ var Transition = React.createClass({
     return (
       <svg width={Math.abs(x2-x1)+margin*2} height={Math.abs(y2-y1)+margin*2} style={style} className={classes}>
           
-          <Defs dangerouslySetInnerHTML={{__html: '<marker id="Triangle" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="3" markerHeight="3" orient="auto"><path fill="'+lineColor+'" d="M 0 0 L 10 5 L 0 10 z" /></marker>'}}/>
+          <Defs dangerouslySetInnerHTML={{__html: '<marker id="Triangle'+this.props.idx+'" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="3" markerHeight="3" orient="auto"><path fill="'+lineColor+'" d="M 0 0 L 10 5 L 0 10 z" /></marker>'}}/>
           <Line x1={x1-minX+margin} y1={y1-minY+margin} x2={x2-minX+margin} y2={y2-minY+margin}
                     fill="#e74c3c" stroke={lineColor}
                     strokeWidth="5"
-                    markerEnd="url(#Triangle)"
+                    markerEnd={"url(#Triangle"+this.props.idx+")"}
                     onMouseDown={this.onMouseDown}
                     />
       </svg>

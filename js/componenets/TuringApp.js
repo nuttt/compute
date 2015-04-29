@@ -109,7 +109,8 @@ var TuringApp = React.createClass({
           key: this.state.uniqueElementKey,
           from: this.state.addingTransition,
           to: this.state.states[stateIdx],
-          elementType: "transition"
+          elementType: "transition",
+          config: []
         }
         transitions.push(transition);
         console.log(transitions);
@@ -136,10 +137,25 @@ var TuringApp = React.createClass({
 
     deleteState: function(idx) {
 
+      var delState = this.state.states[idx];
+
+      var newTransitions = [];
+
+      this.state.transitions.map(function(t, idx){
+        if(t.from !== delState && t.to !== delState) {
+          newTransitions.push(t);
+        }
+      });
+
+      this.setState({transitions: newTransitions});
+
       var newStates = this.state.states.slice();
       newStates.splice(idx, 1);
 
+      // this.setState({states: newStates, transitions: newTransitions});
       this.setState({states: newStates});
+
+
     },
 
     deleteTransition: function(idx) {
