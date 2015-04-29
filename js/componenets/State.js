@@ -19,8 +19,20 @@ var State = React.createClass({
       left: this.props.x - this.config.size / 2
     }
 
+    var stateName = "";
+    
+    if (this.props.stateType == "accepted" ) {
+      stateName = "A";
+    }
+    else if (this.props.stateType == "rejected" ) {
+      stateName = "R";
+    }
+    else if (this.props.stateType == "start" ) {
+      stateName = "S";
+    }
+    
     return (
-      <div style={style} className={classes} onMouseDown={this.onMouseDown}></div>
+      <div style={style} className={classes} onMouseDown={this.onMouseDown}>{stateName}</div>
     );
 
   },

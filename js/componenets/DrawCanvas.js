@@ -51,7 +51,7 @@ var DrawCanvas = React.createClass({
               y={state.y}
               onMouseDown={this.props.handleMouseDownOnElement}
               selected={this.props.selectElement == state}
-              stateType="state"/>
+              stateType={state.type}/>
           ); 
         }.bind(this))}
         {this.props.transitions.map(function(transition, idx){
