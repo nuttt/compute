@@ -8,6 +8,10 @@ var Transition = React.createClass({
     console.log("Hey transition");
   },
 
+  distance: function(x1, y1, x2, y2) {
+    return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
+  },
+
   render: function(){
     var classes = React.addons.classSet({
       'transition': true
@@ -15,72 +19,54 @@ var Transition = React.createClass({
     
     var margin = 5;
     var stateRadius = 25;
+    var arrowHeight = 15;
 
-    var x1a = this.props.x1;
-    var y1a = this.props.y1;
-    var x2a = this.props.x2;
-    var y2a = this.props.y2;
+    var x1o = this.props.x1;
+    var y1o = this.props.y1;
+    var x2o = this.props.x2;
+    var y2o = this.props.y2;
 
-    var dx = x2a - x1a;
-    var dy = y2a - y1a;
+    var centerX = (x1o + x2o) / 2;
+    var centerY = (y1o + y2o) / 2;
 
-    var tan = dy / dx;
-    var angle = Math.atan(tan);
+    var distance = this.distance(x1o, y1o, x2o, y2o) ;
+    if (distance < 0) {
+      distance = 0;
+    }
+
+    var dx = x2o - x1o;
+    var dy = y2o - y1o;
+    var angle = Math.acos(dx / distance);
+    if (dy < 0) {
+      angle = 2 * Math.PI - angle;
+    }
+
     var perpendAngle = angle + Math.PI / 2.0;
     var shiftMargin = 10;
     var shiftX = Math.cos(perpendAngle) * shiftMargin;
     var shiftY = Math.sin(perpendAngle) * shiftMargin;
 
     var oppositeDirection = this.props.key1 > this.props.key2;
-    if (oppositeDirection) {
-      shiftX = -shiftX;
-      shiftY = -shiftY;
-    }
-    else if(this.props.key1 == -1 && this.props.key2 == -1) {
+
+    if (this.props.key1 == -1) {
       shiftX = 0;
       shiftY = 0;
     }
+    console.log("shiftX: " + shiftX);
 
-    var ox = stateRadius * Math.cos(angle);
-    var oy = stateRadius * Math.sin(angle);
+    var degree = angle * 180 / Math.PI;
 
-    var x1, y1, x2, y2;
-    if (x1a <= x2a) {
-      x1 = x1a + ox;
-      x2 = x2a - ox;
-    } else {
-      x1 = x1a - ox;
-      x2 = x2a + ox;
-    }
-
-    if ((y1a <= y2a && tan > 0) || (y1a > y2a && tan <= 0)) {
-      y1 = y1a + oy;
-      y2 = y2a - oy;
-    } else {
-      y1 = y1a - oy;
-      y2 = y2a + oy;
-    }
-
-    x1o = x1;
-    x2o = x2;
-    y1o = y1;
-    y2o = y2;
-
-    x1 += shiftX;
-    x2 += shiftX;
-    y1 += shiftY;
-    y2 += shiftY;
-
-    var minX = Math.min(x1, x2);
-    var minY = Math.min(y1, y2);
-    var maxX = Math.max(x1, x2);
-    var maxY = Math.max(y1, y2);
-
+    var drawDistance = distance - 2 * stateRadius;
     var style = {
-      top: minY - margin,
-      left: minX - +margin,
+      top: centerY - arrowHeight / 2 + shiftY,
+      left: centerX - drawDistance / 2 + shiftX ,
       position: 'absolute',
-      zIndex: 50
+      zIndex: 50,
+      MozTransform: "rotate(" + degree + "deg)",
+      WebkitTransform: "rotate(" + degree + "deg)",
+      OTransform: "rotate(" + degree + "deg)",
+      msTransform: "rotate(" + degree + "deg)",
+      transform: "rotate(" + degree + "deg)"
     }
 
     var classes =  React.addons.classSet({
@@ -93,12 +79,24 @@ var Transition = React.createClass({
     }
 
     var nameDiv = "";
+    var boxDegree = degree;
+    // if (boxDegree < 0) {
+    //   boxDegree += 360;
+    // }
+    // if (boxDegree > 180) {
+    //   boxDegree = 180 - boxDegree;
+    // }
     if (!this.props.mouseEffect) {
       var styleDiv = {
         position: "absolute",
-        top: (y1o + y2o) / 2 + shiftY*3 - 5,
-        left: (x1o + x2o) / 2 - 10 * this.props.config.length,
-        border: "#3498db 5px solid"
+        top: centerY + shiftY,
+        left: centerX + shiftX - 10 * this.props.config.length,
+        border: "#3498db 1px solid",
+        MozTransform: "rotate(" + boxDegree + "deg)",
+        WebkitTransform: "rotate(" + boxDegree + "deg)",
+        OTransform: "rotate(" + boxDegree + "deg)",
+        msTransform: "rotate(" + boxDegree + "deg)",
+        transform: "rotate(" + boxDegree + "deg)"
       }
       console.log(styleDiv);
 
@@ -113,10 +111,10 @@ var Transition = React.createClass({
 
     return (
       <span>
-      <svg width={Math.abs(x2-x1)+margin*2} height={Math.abs(y2-y1)+margin*2} style={style} className={classes}>
+      <svg width={drawDistance} height={arrowHeight} style={style} className={classes}>
           
           <Defs dangerouslySetInnerHTML={{__html: '<marker id="Triangle'+this.props.idx+'" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="3" markerHeight="3" orient="auto"><path fill="'+lineColor+'" d="M 0 0 L 10 5 L 0 10 z" /></marker>'}}/>
-          <Line x1={x1-minX+margin} y1={y1-minY+margin} x2={x2-minX+margin} y2={y2-minY+margin}
+          <Line x1={0} y1={arrowHeight/2} x2={drawDistance} y2={7.5}
                     fill="#e74c3c" stroke={lineColor}
                     strokeWidth="5"
                     markerEnd={"url(#Triangle"+this.props.idx+")"}
