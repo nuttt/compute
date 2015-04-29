@@ -37,4 +37,12 @@ class DbUtilTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals("rejected", $expected2);
         $this->assertEquals("accepted", $expected4);
     }
+
+    public function testDbUtilGetCountTestcases() {
+        $count = dbUtilGetCountTestcases(1);
+        $this->assertEquals("10", $count);
+
+        $count = dbUtilGetCountTestcases(2);
+        $this->assertEquals("9", $count);
+    }
 }

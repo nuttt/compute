@@ -23,7 +23,8 @@ class Turing {
     }
 
     public function next() {
-        if ($this->currentState->getType() == "rejected" ||
+        if ($this->currentState->getType() == "halt" ||
+            $this->currentState->getType() == "rejected" ||
             $this->terminate == TRUE) {
             return;
         }
@@ -54,7 +55,8 @@ class Turing {
 
     public function end() {
         $cnt = 0;
-        while($this->currentState->getType() != "rejected" && 
+        while($this->currentState->getType() != "halt" &&
+              $this->currentState->getType() != "rejected" && 
               $this->terminate == FALSE &&
               $cnt < self::maxNumberIteration) {
             $this->next();

@@ -65,6 +65,7 @@ Case: Wrong
 - id: integer, auto_incr (PK)
 - name: string
 - description: text
+- output: string (tape or yesno)
 
 ### compute_example_testcases
 

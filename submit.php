@@ -19,33 +19,43 @@ foreach($turing_decode["transitions"] as $t) {
 }
 
 $passAll = true;
-for($i = 1 ; $i <= 10 ; $i++) {
+$OutputType = dbUtilGetOutputType($id);
+$totalTestcases = dbUtilGetCountTestcases($id);
+for($i = 1 ; $i <= $totalTestcases ; $i++) {
     $input = dbUtilGetInput($id, $i);
-    $expected = dbUtilGetexpected($id, $i);
+    $expected = dbUtilGetExpected($id, $i);
     if ( is_null($input) || is_null($expected) ) continue;
 
     $turing_obj = new Turing($states, $transitions, new Tape($input));
     $turing_obj->end();
 
-    if ($turing_obj->getResult() == $expected) {
-        // echo "$i Pass\n";
+    $result = null;
+    $actual = null;
+    if ($OutputType == "yesno") {
+        $result = $turing_obj->getResult();     // accepted or rejected
+        $actual = $turing_obj->getActual();     // get really state
     }
-    else {
-        $result = array('id' => $id,
+    else {      // OutputType - tape
+        $result = trim($turing_obj->getTape()->toString());
+        $actual = trim($turing_obj->getTape()->toString());
+    }
+
+    if ($result != $expected) {
+        $return = array('id' => $id,
                         'input' => $input,
                         'expected' => $expected,
-                        'actual' => $turing_obj->getActual(),
+                        'actual' => $actual,
                         'status' => 'wrong'
                         );
-        echo json_encode($result); 
+        echo json_encode($return); 
         $passAll = false;
         break;
     }
 }
 
 if ($passAll) {
-    $result = array('status' => 'right');
-    echo json_encode($result); 
+    $return = array('status' => 'right');
+    echo json_encode($return); 
 }
 
 // $turing_obj = new Turing($states, $transitions, new Tape("xxx"));
