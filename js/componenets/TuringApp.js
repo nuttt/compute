@@ -123,7 +123,7 @@ var TuringApp = React.createClass({
         key: this.state.uniqueElementKey,
         x: x,
         y: y,
-        stateType: "state",
+        type: "state",
         elementType: "state"
       };
 
@@ -165,11 +165,22 @@ var TuringApp = React.createClass({
       this.setState({selectElement: null});
     },
 
+    handleUpdateConfig: function(conf){
+      console.log(">> config change");
+      console.log(conf);
+      var newSelectedElement = this.state.selectElement;
+      $.extend(newSelectedElement, conf);
+      this.setState({selectElement: newSelectedElement});
+    },
+
     render: function() {
       
       var configPane = ""
       if(this.state.tool == "Config") {
-        configPane = <ConfigPane selectElement={this.state.selectElement}/>;
+        configPane = <ConfigPane
+          selectElement={this.state.selectElement}
+          onUpdateConfig={this.handleUpdateConfig}
+        />;
       }
       return (
           <div id="turing-app">

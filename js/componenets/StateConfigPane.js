@@ -1,7 +1,9 @@
 var StateConfigPane = React.createClass({
 
-  stateTypeChange: function() {
+  stateTypeChange: function(e) {
     console.log("stateTypeChange");
+    console.log(e.target.value);
+    this.props.onUpdateConfig({type: e.target.value});
   },
 
   render: function() {
@@ -10,11 +12,11 @@ var StateConfigPane = React.createClass({
       <form>
         <div class="form-group">
           <label for="state-type">State Type</label>
-          <select className="form-control" value="state" onChange={this.stateTypeChange}>
+          <select className="form-control" value={this.props.selectElement.type} onChange={this.stateTypeChange}>
             <option value="state">Normal State</option>
             <option value="start">Start State</option>
-            <option value="accept">Halt Accept</option>
-            <option value="reject">Halt Reject</option>
+            <option value="accepted">Accept</option>
+            <option value="rejected">Reject</option>
           </select>
         </div>
       </form>
