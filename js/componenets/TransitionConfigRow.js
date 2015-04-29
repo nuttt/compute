@@ -5,19 +5,19 @@ var TransitionConfigRow = React.createClass({
   },
 
   changeInput: function(e){
-    var newConf = this.cloneOldConf;
+    var newConf = this.cloneOldConf();
     newConf.input = e.target.value;
     this.props.onUpdateConfig(newConf, this.props.idx);
   },
 
   changeWrite: function(e){
-    var newConf = this.cloneOldConf;
+    var newConf = this.cloneOldConf();
     newConf.write = e.target.value;
     this.props.onUpdateConfig(newConf, this.props.idx);
   },
 
   changeDirection: function(e) {
-    var newConf = this.cloneOldConf;
+    var newConf = this.cloneOldConf();
     newConf.direction = e.target.value;
     this.props.onUpdateConfig(newConf, this.props.idx);
   },

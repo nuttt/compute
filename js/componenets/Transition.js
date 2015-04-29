@@ -31,7 +31,8 @@ var Transition = React.createClass({
     var shiftX = Math.cos(perpendAngle) * shiftMargin;
     var shiftY = Math.sin(perpendAngle) * shiftMargin;
 
-    if (this.props.key1 > this.props.key2) {
+    var oppositeDirection = this.props.key1 > this.props.key2;
+    if (oppositeDirection) {
       shiftX = -shiftX;
       shiftY = -shiftY;
     }
@@ -60,6 +61,11 @@ var Transition = React.createClass({
       y2 = y2a + oy;
     }
 
+    x1o = x1;
+    x2o = x2;
+    y1o = y1;
+    y2o = y2;
+
     x1 += shiftX;
     x2 += shiftX;
     y1 += shiftY;
@@ -86,7 +92,27 @@ var Transition = React.createClass({
       lineColor = "#00ffff";
     }
 
+    var nameDiv = "";
+    if (!this.props.mouseEffect) {
+      var styleDiv = {
+        position: "absolute",
+        top: (y1o + y2o) / 2 + shiftY*3 - 5,
+        left: (x1o + x2o) / 2 - 10 * this.props.config.length,
+        border: "#3498db 5px solid"
+      }
+      console.log(styleDiv);
+
+      names = this.props.config.map(function(cf){
+
+        var content = cf.input + "/" + cf.write + ", " + cf.direction;
+        return content; 
+      });
+
+      nameDiv = <div style={styleDiv}>{names.join(" || ")}</div>;
+    }
+
     return (
+      <span>
       <svg width={Math.abs(x2-x1)+margin*2} height={Math.abs(y2-y1)+margin*2} style={style} className={classes}>
           
           <Defs dangerouslySetInnerHTML={{__html: '<marker id="Triangle'+this.props.idx+'" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="3" markerHeight="3" orient="auto"><path fill="'+lineColor+'" d="M 0 0 L 10 5 L 0 10 z" /></marker>'}}/>
@@ -97,6 +123,8 @@ var Transition = React.createClass({
                     onMouseDown={this.onMouseDown}
                     />
       </svg>
+      {nameDiv}
+      </span>
     );
 
   },

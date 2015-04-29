@@ -37,6 +37,7 @@ var DrawCanvas = React.createClass({
                           key2={-1}
                           x2={this.state.mouseX}
                           y2={this.state.mouseY}
+                          mouseEffect={true}
                         />
     }
 
@@ -68,6 +69,8 @@ var DrawCanvas = React.createClass({
                 y2={transition.to.y}
                 selected={this.props.selectElement == transition}
                 onMouseDown={this.props.handleMouseDownOnElement}
+                config={transition.config}
+                mouseEffect={false}
               />
             );
           } else {
