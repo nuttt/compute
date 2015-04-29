@@ -15,12 +15,16 @@
                     "id": 2
                 },
                 {
-                    "type": "accepted",
+                    "type": "state",
                     "id": 3
                 },
                 {
                     "type": "rejected",
                     "id": 4
+                },
+                {
+                    "type": "accepted",
+                    "id": 5
                 }
             ],
     "transitions": [
@@ -74,16 +78,9 @@
                     "direction": "R"
                 },
                 {
-                    "from": 4,
-                    "input": "0",
-                    "to": 4,
-                    "write": "",
-                    "direction": "R"
-                },
-                {
-                    "from": 4,
-                    "input": "1",
-                    "to": 4,
+                    "from": 3,
+                    "input": " ",
+                    "to": 5,
                     "write": "",
                     "direction": "R"
                 }
@@ -143,8 +140,12 @@
                     "id": 9
                 },
                 {
-                    "type": "halt",
+                    "type": "state",
                     "id": 10
+                },
+                {
+                    "type": "accepted",
+                    "id": 11
                 }
             ],
     "transitions": [
@@ -248,10 +249,16 @@
                     "from": 9, "input": "y", "to": 9, "write": "b", "direction": "R"
                 },
                 {
-                    "from": 9, "input": " ", "to": 10, "write": "", "direction": "R"
+                    "from": 9, "input": " ", "to": 10, "write": "", "direction": "L"
                 },
                 {
-                    "from": 10, "input": " ", "to": 10, "write": "", "direction": "S"
+                    "from": 10, "input": "a", "to": 10, "write": "a", "direction": "L"
+                },
+                {
+                    "from": 10, "input": "b", "to": 10, "write": "b", "direction": "L"
+                },
+                {
+                    "from": 10, "input": " ", "to": 11, "write": "", "direction": "S"
                 }
             ]
 }

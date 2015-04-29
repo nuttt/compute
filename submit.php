@@ -29,28 +29,42 @@ for($i = 1 ; $i <= $totalTestcases ; $i++) {
     $turing_obj = new Turing($states, $transitions, new Tape($input));
     $turing_obj->end();
 
-    $result = null;
-    $actual = null;
     if ($OutputType == "yesno") {
-        $result = $turing_obj->getResult();     // accepted or rejected
-        $actual = $turing_obj->getActual();     // get really state
+        if ($turing_obj->getResult() != $expected) { // accepted or rejected
+            $return = array('id' => $id,
+                            'input' => $input,
+                            'expected' => $expected,
+                            'actual' => $turing_obj->getActual(),
+                            'status' => 'wrong'
+                            );
+            echo json_encode($return); 
+            $passAll = false;
+            break;
+        }
     }
     else {      // OutputType - tape
-        $result = trim($turing_obj->getTape()->toString());
         $actual = trim($turing_obj->getTape()->toString());
+        $message = null;
+        if ($turing_obj->getTape()->getPosition() != -1) {
+            $message = "Tape pointer must be before the leftmost of content";
+        }
+        if ($actual != $expected) {
+            $message = "Wrong answer";
+        }
+        if (!is_null($message)) {
+            $return = array('id' => $id,
+                            'input' => $input,
+                            'expected' => $expected,
+                            'actual' => $actual,
+                            'status' => 'wrong',
+                            'message' => $message
+                            );
+            echo json_encode($return); 
+            $passAll = false;
+            break;
+        }
     }
 
-    if ($result != $expected) {
-        $return = array('id' => $id,
-                        'input' => $input,
-                        'expected' => $expected,
-                        'actual' => $actual,
-                        'status' => 'wrong'
-                        );
-        echo json_encode($return); 
-        $passAll = false;
-        break;
-    }
 }
 
 if ($passAll) {

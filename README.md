@@ -40,12 +40,12 @@
 
 **Response**
 
-Case: Right
+	Case: Right
 	{
 		status: right
 	}
 
-Case: Wrong
+	Case: Wrong
 	{
 		id: 1,
 		input: "0111010101 110101110",
@@ -53,7 +53,19 @@ Case: Wrong
 		actual: "<010101011101, accepted, rejected, loop>",
 		status: wrong
 	}
-
+	
+	In case the answer is on the tape, there will be another field 'message'
+	Example:
+	{
+		id: 1,
+		input: "0111010101 110101110",
+		expected: "010101011101",
+		actual:   "010101011101",
+		status: wrong,
+		message: "Tape pointer must be before the leftmost of content on the tape"
+	}
+	
+	
 ## PHP Classes
 
 
