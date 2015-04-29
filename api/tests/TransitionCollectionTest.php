@@ -1,9 +1,9 @@
 <?php
 
-class TransitionsTest extends PHPUnit_Framework_TestCase {
+class TransitionCollectionTest extends PHPUnit_Framework_TestCase {
 
     public function testAddTransition() {
-        $transitions = new Transitions();
+        $transitions = new TransitionCollection();
         $transitions->addTransition(1, '0', 2, '', 'R');
         $transitions->addTransition(2, '1', 3, '', 'R');
         $transitions->addTransition(1, '1', 4, '', 'R');
@@ -12,7 +12,7 @@ class TransitionsTest extends PHPUnit_Framework_TestCase {
     }
 
     public function testFind() {
-        $transitions = new Transitions();
+        $transitions = new TransitionCollection();
         $transitions->addTransition(1, '0', 2, '', 'R');
         $transitions->addTransition(2, '1', 3, '', 'R');
         $transitions->addTransition(1, '1', 4, '', 'R');

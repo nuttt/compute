@@ -8,6 +8,7 @@ class Turing {
     private $tape;
     private $currentState;
     private $terminate;
+    private $loop;
     const maxNumberIteration = 50000;
 
     public function __construct($states, $transitions, $tape) {
@@ -18,15 +19,15 @@ class Turing {
         $this->currentState = $this->states->findStartState();
 
         $this->terminate = FALSE;
+        $this->loop = FALSE;
     }
 
     public function next() {
-        if ($this->currentState->getType() == "accepted" ||
-            $this->currentState->getType() == "rejected" ||
+        if ($this->currentState->getType() == "rejected" ||
             $this->terminate == TRUE) {
             return;
         }
-
+        
         $transition = $this->transitions->find($this->currentState->getID(), 
             $this->tape->getContent());
 
@@ -53,13 +54,19 @@ class Turing {
 
     public function end() {
         $cnt = 0;
-        while($this->currentState->getType() != "accepted" &&
-              $this->currentState->getType() != "rejected" && 
+        while($this->currentState->getType() != "rejected" && 
               $this->terminate == FALSE &&
               $cnt < self::maxNumberIteration) {
             $this->next();
             $cnt += 1;
         }
+        if ($cnt == self::maxNumberIteration) {
+            $this->loop = true;
+        }
+    }
+
+    public function checkValid() {
+
     }
 
     public function checkDeterministic() {
@@ -80,5 +87,21 @@ class Turing {
 
     public function getCurrentState() {
         return $this->currentState;
+    }
+
+    public function getResult() {
+        if ($this->currentState->getType() == "accepted") {
+            return "accepted";
+        }
+        else {
+            return "rejected";
+        }
+    }
+
+    public function getActual() {
+        if ($this->loop) {
+            return "loop";
+        }
+        return $this->currentState->getType();
     }
 }
