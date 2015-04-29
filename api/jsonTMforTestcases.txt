@@ -1,0 +1,264 @@
+
+// 01 Problem - yesno
+{
+    "states": [
+                {
+                    "type": "start",
+                    "id": 0
+                },
+                {
+                    "type": "state",
+                    "id": 1
+                },
+                {
+                    "type": "state",
+                    "id": 2
+                },
+                {
+                    "type": "state",
+                    "id": 3
+                },
+                {
+                    "type": "rejected",
+                    "id": 4
+                },
+                {
+                    "type": "accepted",
+                    "id": 5
+                }
+            ],
+    "transitions": [
+                {
+                    "from": 0,
+                    "input": " ",
+                    "to": 1,
+                    "write": "",
+                    "direction": "R"
+                },
+                {
+                    "from": 1,
+                    "input": "0",
+                    "to": 2,
+                    "write": "",
+                    "direction": "R"
+                },
+                {
+                    "from": 2,
+                    "input": "0",
+                    "to": 2,
+                    "write": "",
+                    "direction": "R"
+                },
+                {
+                    "from": 2,
+                    "input": "1",
+                    "to": 3,
+                    "write": "",
+                    "direction": "R"
+                },
+                {
+                    "from": 3,
+                    "input": "0",
+                    "to": 2,
+                    "write": "",
+                    "direction": "R"
+                },
+                {
+                    "from": 3,
+                    "input": "1",
+                    "to": 3,
+                    "write": "",
+                    "direction": "R"
+                },
+                {
+                    "from": 1,
+                    "input": "1",
+                    "to": 4,
+                    "write": "",
+                    "direction": "R"
+                },
+                {
+                    "from": 3,
+                    "input": " ",
+                    "to": 5,
+                    "write": "",
+                    "direction": "R"
+                }
+            ]
+}
+
+
+
+
+
+
+
+
+
+
+// reverse on tape
+{
+    "states": [
+                {
+                    "type": "start",
+                    "id": 0
+                },
+                {
+                    "type": "state",
+                    "id": 1
+                },
+                {
+                    "type": "state",
+                    "id": 2
+                },
+                {
+                    "type": "state",
+                    "id": 3
+                },
+                {
+                    "type": "state",
+                    "id": 4
+                },
+                {
+                    "type": "state",
+                    "id": 5
+                },
+                {
+                    "type": "state",
+                    "id": 6
+                },
+                {
+                    "type": "state",
+                    "id": 7
+                },
+                {
+                    "type": "state",
+                    "id": 8
+                },
+                {
+                    "type": "state",
+                    "id": 9
+                },
+                {
+                    "type": "state",
+                    "id": 10
+                },
+                {
+                    "type": "accepted",
+                    "id": 11
+                }
+            ],
+    "transitions": [
+                {
+                    "from": 0, "input": " ", "to": 1, "write": "", "direction": "R"
+                },
+                {
+                    "from": 1, "input": " ", "to": 1, "write": "", "direction": "S"
+                },
+                {
+                    "from": 1, "input": "a", "to": 2, "write": "z", "direction": "R"
+                },
+                {
+                    "from": 1, "input": "b", "to": 5, "write": "z", "direction": "R"
+                },
+                {
+                    "from": 1, "input": "x", "to": 8, "write": "x", "direction": "L"
+                },
+                {
+                    "from": 1, "input": "y", "to": 8, "write": "y", "direction": "L"
+                },
+                {
+                    "from": 2, "input": "a", "to": 2, "write": "a", "direction": "R"
+                },
+                {
+                    "from": 2, "input": "b", "to": 2, "write": "b", "direction": "R"
+                },
+                {
+                    "from": 2, "input": " ", "to": 3, "write": "", "direction": "L"
+                },
+                {
+                    "from": 2, "input": "x", "to": 3, "write": "x", "direction": "L"
+                },
+                {
+                    "from": 2, "input": "y", "to": 3, "write": "y", "direction": "L"
+                },
+                {
+                    "from": 3, "input": "a", "to": 4, "write": "x", "direction": "L"
+                },
+                {
+                    "from": 3, "input": "b", "to": 7, "write": "x", "direction": "L"
+                },
+                {
+                    "from": 3, "input": "z", "to": 8, "write": "x", "direction": "L"
+                },
+                {
+                    "from": 4, "input": "a", "to": 4, "write": "a", "direction": "L"
+                },
+                {
+                    "from": 4, "input": "b", "to": 4, "write": "b", "direction": "L"
+                },
+                {
+                    "from": 4, "input": "z", "to": 1, "write": "x", "direction": "R"
+                },
+                {
+                    "from": 5, "input": "a", "to": 5, "write": "a", "direction": "R"
+                },
+                {
+                    "from": 5, "input": "b", "to": 5, "write": "b", "direction": "R"
+                },
+                {
+                    "from": 5, "input": " ", "to": 6, "write": "", "direction": "L"
+                },
+                {
+                    "from": 5, "input": "x", "to": 6, "write": "x", "direction": "L"
+                },
+                {
+                    "from": 5, "input": "y", "to": 6, "write": "y", "direction": "L"
+                },
+                {
+                    "from": 6, "input": "a", "to": 4, "write": "y", "direction": "L"
+                },
+                {
+                    "from": 6, "input": "b", "to": 7, "write": "y", "direction": "L"
+                },
+                {
+                    "from": 6, "input": "z", "to": 8, "write": "y", "direction": "L"
+                },
+                {
+                    "from": 7, "input": "a", "to": 7, "write": "a", "direction": "L"
+                },
+                {
+                    "from": 7, "input": "b", "to": 7, "write": "b", "direction": "L"
+                },
+                {
+                    "from": 7, "input": "z", "to": 1, "write": "y", "direction": "R"
+                },
+                {
+                    "from": 8, "input": "x", "to": 8, "write": "x", "direction": "L"
+                },
+                {
+                    "from": 8, "input": "y", "to": 8, "write": "y", "direction": "L"
+                },
+                {
+                    "from": 8, "input": " ", "to": 9, "write": "", "direction": "R"
+                },
+                {
+                    "from": 9, "input": "x", "to": 9, "write": "a", "direction": "R"
+                },
+                {
+                    "from": 9, "input": "y", "to": 9, "write": "b", "direction": "R"
+                },
+                {
+                    "from": 9, "input": " ", "to": 10, "write": "", "direction": "L"
+                },
+                {
+                    "from": 10, "input": "a", "to": 10, "write": "a", "direction": "L"
+                },
+                {
+                    "from": 10, "input": "b", "to": 10, "write": "b", "direction": "L"
+                },
+                {
+                    "from": 10, "input": " ", "to": 11, "write": "", "direction": "S"
+                }
+            ]
+}

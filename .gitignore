@@ -36,4 +36,4 @@ build/Release
 node_modules
 
 
-api/db_util.php
+api/db_credential.php

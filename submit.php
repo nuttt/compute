@@ -19,33 +19,57 @@ foreach($turing_decode["transitions"] as $t) {
 }
 
 $passAll = true;
-for($i = 1 ; $i <= 10 ; $i++) {
+$OutputType = dbUtilGetOutputType($id);
+$totalTestcases = dbUtilGetCountTestcases($id);
+for($i = 1 ; $i <= $totalTestcases ; $i++) {
     $input = dbUtilGetInput($id, $i);
-    $expected = dbUtilGetexpected($id, $i);
+    $expected = dbUtilGetExpected($id, $i);
     if ( is_null($input) || is_null($expected) ) continue;
 
     $turing_obj = new Turing($states, $transitions, new Tape($input));
     $turing_obj->end();
 
-    if ($turing_obj->getResult() == $expected) {
-        // echo "$i Pass\n";
+    if ($OutputType == "yesno") {
+        if ($turing_obj->getResult() != $expected) { // accepted or rejected
+            $return = array('id' => $id,
+                            'input' => $input,
+                            'expected' => $expected,
+                            'actual' => $turing_obj->getActual(),
+                            'status' => 'wrong'
+                            );
+            echo json_encode($return); 
+            $passAll = false;
+            break;
+        }
     }
-    else {
-        $result = array('id' => $id,
-                        'input' => $input,
-                        'expected' => $expected,
-                        'actual' => $turing_obj->getActual(),
-                        'status' => 'wrong'
-                        );
-        echo json_encode($result); 
-        $passAll = false;
-        break;
+    else {      // OutputType - tape
+        $actual = trim($turing_obj->getTape()->toString());
+        $message = null;
+        if ($turing_obj->getTape()->getPosition() != -1) {
+            $message = "Tape pointer must be before the leftmost of content";
+        }
+        if ($actual != $expected) {
+            $message = "Wrong answer";
+        }
+        if (!is_null($message)) {
+            $return = array('id' => $id,
+                            'input' => $input,
+                            'expected' => $expected,
+                            'actual' => $actual,
+                            'status' => 'wrong',
+                            'message' => $message
+                            );
+            echo json_encode($return); 
+            $passAll = false;
+            break;
+        }
     }
+
 }
 
 if ($passAll) {
-    $result = array('status' => 'right');
-    echo json_encode($result); 
+    $return = array('status' => 'right');
+    echo json_encode($return); 
 }
 
 // $turing_obj = new Turing($states, $transitions, new Tape("xxx"));
