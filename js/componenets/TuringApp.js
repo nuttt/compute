@@ -59,13 +59,7 @@ var TuringApp = React.createClass({
       var turing = this.convertToTuringFormat();
       console.log(turing);
       NProgress.start();
-      // $.notify({
-      //   // options
-      //   message: 'Hello World' 
-      // },{
-      //   // settings
-      //   type: 'danger'
-      // });
+      $.notify("Submitting...", "info");
       $.ajax({
         url: "api/submit.php",
         dataType: "json",
@@ -74,6 +68,20 @@ var TuringApp = React.createClass({
         success: function(res){
           console.log(res);
           NProgress.done();
+          if (res.status == "wrong") {
+            var err = "Error"
+            + "\nInput: " + res.input
+            + "\nExpected: " + res.expected
+            + "\nActual: " + res.actual
+
+            if (res.message) {
+              err += "\nMessage: " + res.message;  
+            }
+            
+            $.notify(err, "error");
+          } else {
+            $.notify("Correct!", "success");
+          }
         }.bind(this)
       });
     },

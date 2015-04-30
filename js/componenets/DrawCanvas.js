@@ -109,7 +109,6 @@ var DrawCanvas = React.createClass({
         }.bind(this))}
         
         {addingTransition}
-        <div style={originTest}>x (0,0)</div>
       </div>
     );
   },
