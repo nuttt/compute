@@ -43,7 +43,7 @@ nav:after
     width: 100%;
     height: calc(100% - 50px - 50px); 
 
-    background: url('../img/tiny_grid.png') repeat;
+    background: url('../img/noisy_grid.png') repeat;
 }
 #draw-canvas .state
 {

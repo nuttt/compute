@@ -5,7 +5,8 @@ var Toolbar = React.createClass({
       'Add Transition',
       'Move',
       'Delete',
-      'Config'
+      'Config',
+      'Pan'
     ]
   },
 

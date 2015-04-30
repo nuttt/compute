@@ -10,8 +10,8 @@ var TransitionSelfLoop = React.createClass({
     });
     
     var style = {
-      top: this.props.y - 20 - 45,
-      left: this.props.x - 10,
+      top: this.props.y - 20 - 45 - this.props.offsetY,
+      left: this.props.x - 10 - this.props.offsetX,
       position: 'absolute',
       zIndex: 50
     }

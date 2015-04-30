@@ -12,6 +12,7 @@ var TuringApp = React.createClass({
             movingStateIdx: null,
             addingTransition: null,
             selectElement: null,
+            panning: false,
         };
     },
 
@@ -20,8 +21,39 @@ var TuringApp = React.createClass({
       document.addEventListener('mouseup', this.handleMouseUp);     
     },
 
-    test: function(){
-      // console.log('body click!');
+    convertToTuringFormat: function() {
+      var states = [];
+      var transitions = [];
+      
+      this.state.states.map(function(state){
+        states.push({
+          id:   state.key + "",
+          type: state.type
+        });
+      }.bind(states));
+
+      this.state.transitions.map(function(transition){
+        for(conf of transition.config) {
+          transitions.push({
+            from:  transition.from.key + "",
+            to:    transition.to.key + "",
+            input: conf.input,
+            write: conf.write,
+            direction: conf.direction 
+          });
+        }
+      }.bind(transitions));
+
+      return {
+        turing: {
+          states: states,
+          transitions: transitions
+        }
+      };
+    },
+
+    handleSubmit: function() {
+      console.log(this.convertToTuringFormat());
     },
 
     changeTool: function(tool) {
@@ -40,13 +72,9 @@ var TuringApp = React.createClass({
       // console.log("Mouse Down");
       // console.log(x + " " + y);
       if (this.state.tool == 'Add State') {
-        this.createNewState(x + this.state.canvasOriginX, y + this.state.canvasOriginY);
-      } else if (this.state.tool == 'Add Transition') {
-        
-      } else if (this.state.tool == 'Move') {
-
-      } else {
-
+        this.createNewState(x, y);
+      } else if (this.state.tool == 'Pan') {
+        this.setState({panning: true});
       }
 
     },
@@ -75,22 +103,35 @@ var TuringApp = React.createClass({
     },
 
     handleMouseUp: function() {
-      this.setState({movingStateIdx: null});
+      this.setState({
+        movingStateIdx: null,
+        panning: false
+      });
     },
 
     handleMouseMove: function(e) {
       // console.log(e.movementX + " " + e.movementY);
       // console.log("moving idx:" + this.state.movingStateIdx);
-      if (this.state.movingStateIdx === null) {
-        // console.log("No element select");
-        return ;
-      }
+      
+      if (this.state.tool == "Move") {
+        if (this.state.movingStateIdx === null) {
+          // console.log("No element select");
+          return ;
+        }
 
-      var states = this.state.states.slice();
-      var idx = this.state.movingStateIdx;
-      states[idx].x += e.movementX;
-      states[idx].y += e.movementY;
-      this.setState(states);
+        var states = this.state.states.slice();
+        var idx = this.state.movingStateIdx;
+        states[idx].x += e.movementX;
+        states[idx].y += e.movementY;
+        this.setState(states);
+      } else if (this.state.tool == "Pan" && this.state.panning) {
+        this.setState({
+          canvasOriginX: this.state.canvasOriginX - e.movementX,
+          canvasOriginY: this.state.canvasOriginY - e.movementY
+        });
+      }
+      
+      
     },
 
     resetAddTransition: function() {
@@ -201,7 +242,7 @@ var TuringApp = React.createClass({
       return (
           <div id="turing-app">
 
-            <Nav problemId={1} problemName="Palindrome"></Nav>
+            <Nav problemId={1} problemName="Palindrome" submit={this.handleSubmit}></Nav>
             <DrawCanvas
               handleMouseDown={this.handleMouseDown}
               handleMouseDownOnElement={this.handleMouseDownOnElement}
@@ -209,6 +250,8 @@ var TuringApp = React.createClass({
               transitions={this.state.transitions}
               addingTransition={this.state.addingTransition}
               selectElement={this.state.selectElement}
+              offsetX={this.state.canvasOriginX}
+              offsetY={this.state.canvasOriginY}
             />
             <Toolbar changeTool={this.changeTool} tool={this.state.tool}></Toolbar>
             {configPane}

@@ -15,8 +15,8 @@ var State = React.createClass({
     });
 
     var style = {
-      top: this.props.y - this.config.size / 2,
-      left: this.props.x - this.config.size / 2
+      top: this.props.y - this.config.size / 2 - this.props.offsetY,
+      left: this.props.x - this.config.size / 2 - this.props.offsetX
     }
 
     var stateName = "";

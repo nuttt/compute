@@ -4,10 +4,6 @@ var Transition = React.createClass({
     this.props.onMouseDown("transition", this.props.idx);
   },
 
-  hey: function(){
-    console.log("Hey transition");
-  },
-
   distance: function(x1, y1, x2, y2) {
     return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
   },
@@ -52,14 +48,13 @@ var Transition = React.createClass({
       shiftX = 0;
       shiftY = 0;
     }
-    console.log("shiftX: " + shiftX);
 
     var degree = angle * 180 / Math.PI;
 
     var drawDistance = distance - 2 * stateRadius;
     var style = {
-      top: centerY - arrowHeight / 2 + shiftY,
-      left: centerX - drawDistance / 2 + shiftX ,
+      top: centerY - arrowHeight / 2 + shiftY - this.props.offsetY,
+      left: centerX - drawDistance / 2 + shiftX - this.props.offsetX,
       position: 'absolute',
       zIndex: 50,
       MozTransform: "rotate(" + degree + "deg)",
@@ -89,8 +84,8 @@ var Transition = React.createClass({
     if (!this.props.mouseEffect) {
       var styleDiv = {
         position: "absolute",
-        top: centerY + shiftY,
-        left: centerX + shiftX - 10 * this.props.config.length,
+        top: centerY + shiftY - this.props.offsetY,
+        left: centerX + shiftX - 10 * this.props.config.length - this.props.offsetX,
         border: "#3498db 1px solid",
         MozTransform: "rotate(" + boxDegree + "deg)",
         WebkitTransform: "rotate(" + boxDegree + "deg)",
@@ -98,7 +93,7 @@ var Transition = React.createClass({
         msTransform: "rotate(" + boxDegree + "deg)",
         transform: "rotate(" + boxDegree + "deg)"
       }
-      console.log(styleDiv);
+      // console.log(styleDiv);
 
       names = this.props.config.map(function(cf){
 

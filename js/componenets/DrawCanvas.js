@@ -2,9 +2,11 @@ var DrawCanvas = React.createClass({
   
   onMouseDown: function(e) {
     
+    
+
     var pos = $(this.getDOMNode()).offset();
-    var x = e.nativeEvent.pageX - pos.left;
-    var y = e.nativeEvent.pageY - pos.top;
+    var x = e.nativeEvent.pageX - pos.left + this.props.offsetX;
+    var y = e.nativeEvent.pageY - pos.top + this.props.offsetY;
 
     this.props.handleMouseDown(x, y);
   },
@@ -35,14 +37,26 @@ var DrawCanvas = React.createClass({
                           x1={this.props.addingTransition.x}
                           y1={this.props.addingTransition.y}
                           key2={-1}
-                          x2={this.state.mouseX}
-                          y2={this.state.mouseY}
+                          x2={this.state.mouseX + this.props.offsetX}
+                          y2={this.state.mouseY + this.props.offsetY}
+                          offsetX={this.props.offsetX}
+                          offsetY={this.props.offsetY}
                           mouseEffect={true}
                         />
     }
 
+    var originTest = {
+      position: "absolute",
+      top: -this.props.offsetY,
+      left: -this.props.offsetX
+    }
+
+    var drawCanvasStyle = {
+      backgroundPosition: (-this.props.offsetX) + "px " + (-this.props.offsetY) + "px"
+    }
+
     return(
-      <div id="draw-canvas" onMouseDown={this.onMouseDown} onMouseMove={this.onMouseMove}>
+      <div id="draw-canvas" onMouseDown={this.onMouseDown} onMouseMove={this.onMouseMove} style={drawCanvasStyle}>
         {this.props.states.map(function(state, idx){
           return(
             <State
@@ -50,6 +64,8 @@ var DrawCanvas = React.createClass({
               idx={idx}
               x={state.x}
               y={state.y}
+              offsetX={this.props.offsetX}
+              offsetY={this.props.offsetY}
               onMouseDown={this.props.handleMouseDownOnElement}
               selected={this.props.selectElement == state}
               stateType={state.type}/>
@@ -67,6 +83,8 @@ var DrawCanvas = React.createClass({
                 key2={transition.to.key}
                 x2={transition.to.x}
                 y2={transition.to.y}
+                offsetX={this.props.offsetX}
+                offsetY={this.props.offsetY}
                 selected={this.props.selectElement == transition}
                 onMouseDown={this.props.handleMouseDownOnElement}
                 config={transition.config}
@@ -80,6 +98,8 @@ var DrawCanvas = React.createClass({
                 idx={idx}
                 x={transition.from.x}
                 y={transition.from.y}
+                offsetX={this.props.offsetX}
+                offsetY={this.props.offsetY}
                 selected={this.props.selectElement == transition}
                 onMouseDown={this.props.handleMouseDownOnElement}
               />
@@ -88,6 +108,7 @@ var DrawCanvas = React.createClass({
         }.bind(this))}
         
         {addingTransition}
+        <div style={originTest}>x (0,0)</div>
       </div>
     );
   },

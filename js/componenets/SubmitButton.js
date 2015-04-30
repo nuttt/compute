@@ -1,7 +1,8 @@
 var SubmitButton = React.createClass({
+
   render: function(){
     return (
-      <button className="btn btn-primary">Submit</button>
+      <div className="btn btn-primary" onClick={this.props.submit}>Submit</div>
     );
   }
 });
