@@ -13,6 +13,7 @@ var TuringApp = React.createClass({
             addingTransition: null,
             selectElement: null,
             panning: false,
+            currentProblem: 1
         };
     },
 
@@ -45,6 +46,7 @@ var TuringApp = React.createClass({
       }.bind(transitions));
 
       return {
+        id: this.state.currentProblem,
         turing: {
           states: states,
           transitions: transitions
@@ -76,7 +78,6 @@ var TuringApp = React.createClass({
       } else if (this.state.tool == 'Pan') {
         this.setState({panning: true});
       }
-
     },
 
     handleMouseDownOnElement: function(elementType, idx) {
@@ -130,8 +131,6 @@ var TuringApp = React.createClass({
           canvasOriginY: this.state.canvasOriginY - e.movementY
         });
       }
-      
-      
     },
 
     resetAddTransition: function() {
@@ -195,8 +194,6 @@ var TuringApp = React.createClass({
 
       // this.setState({states: newStates, transitions: newTransitions});
       this.setState({states: newStates});
-
-
     },
 
     deleteTransition: function(idx) {
@@ -230,6 +227,14 @@ var TuringApp = React.createClass({
       this.setState({selectElement: newSelectedElement});
     },
 
+    changeProblem: function(id){
+
+      console.log("change! " + id);
+      this.setState({
+        currentProblem: id
+      });
+    },
+
     render: function() {
       
       var configPane = ""
@@ -239,10 +244,11 @@ var TuringApp = React.createClass({
           onUpdateConfig={this.handleUpdateConfig}
         />;
       }
-      return (
-          <div id="turing-app">
 
-            <Nav problemId={1} problemName="Palindrome" submit={this.handleSubmit}></Nav>
+      return (
+        <span>
+          <div id="turing-app">
+            <Nav problemId={this.state.currentProblem} changeProblem={this.changeProblem} submit={this.handleSubmit}></Nav>
             <DrawCanvas
               handleMouseDown={this.handleMouseDown}
               handleMouseDownOnElement={this.handleMouseDownOnElement}
@@ -256,7 +262,8 @@ var TuringApp = React.createClass({
             <Toolbar changeTool={this.changeTool} tool={this.state.tool}></Toolbar>
             {configPane}
           </div>
+          <ProblemModal id={this.state.currentProblem} />
+        </span>
       );
-    },
-    
+    }
 });

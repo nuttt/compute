@@ -4,7 +4,7 @@ var Nav = React.createClass({
     return (
       <nav>
         <div className="left">
-          {this.props.problemName}
+          <ProblemSelector problemId={this.props.problemId} changeProblem={this.props.changeProblem}/>
         </div>
         <div className="right">
           <SubmitButton submit={this.props.submit}/>

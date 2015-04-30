@@ -1,6 +1,6 @@
 <?php
 
-require_once('api/autoload.php');
+require_once('autoload.php');
 
 $id = $_POST['id'];
 $turing_json = $_POST['turing'];
