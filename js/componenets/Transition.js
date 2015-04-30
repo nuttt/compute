@@ -75,18 +75,32 @@ var Transition = React.createClass({
 
     var nameDiv = "";
     var boxDegree = degree;
-    // if (boxDegree < 0) {
-    //   boxDegree += 360;
-    // }
-    // if (boxDegree > 180) {
-    //   boxDegree = 180 - boxDegree;
-    // }
+    var boxShiftX = shiftX;
+    var boxShiftY = shiftY;
+
+    if (boxDegree > 90 && boxDegree < 270) {
+      boxDegree += 180;
+      boxShiftX = -shiftX;
+      boxShiftX = -shiftY;
+    }
+
+    // console.log("shiftX: " + shiftX);
+    // console.log("shiftY: " + shiftY);
+    // console.log("boxShiftX: " + boxShiftX);
+    // console.log("boxShiftY: " + boxShiftY);
+
+    var labelHeight = 20;
+    var labelWidth = 40;
     if (!this.props.mouseEffect) {
       var styleDiv = {
         position: "absolute",
-        top: centerY + shiftY - this.props.offsetY,
-        left: centerX + shiftX - 10 * this.props.config.length - this.props.offsetX,
+        top: centerY - labelHeight / 2 + shiftY - this.props.offsetY,
+        left: centerX - labelWidth * this.props.config.length / 2 + shiftX - this.props.offsetX,
         border: "#3498db 1px solid",
+        backgroundColor: "#3ee",
+        padding: "0 10px",
+        zIndex: 50,
+        fontWeight: "bold",
         MozTransform: "rotate(" + boxDegree + "deg)",
         WebkitTransform: "rotate(" + boxDegree + "deg)",
         OTransform: "rotate(" + boxDegree + "deg)",

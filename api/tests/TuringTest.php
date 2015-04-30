@@ -22,13 +22,13 @@ class TuringTest extends PHPUnit_Framework_TestCase {
         $turing2 = new Turing($states, $transitions, clone $tape2); // go to 4
 
         $turing1->next();
-        $this->assertEquals("state", $turing1->getCurrentState()->getType());
+        $this->assertEquals("state", $turing1->getActualState());
         $turing1->next();
         $turing1->next();
-        $this->assertEquals("accepted", $turing1->getCurrentState()->getType());
+        $this->assertEquals("accepted", $turing1->getActualState());
 
         $turing2->end();
-        $this->assertEquals("rejected", $turing2->getCurrentState()->getType());
+        $this->assertEquals("rejected", $turing2->getActualState());
 
         // loop forever
         $transitions2 = new TransitionCollection();
@@ -39,7 +39,23 @@ class TuringTest extends PHPUnit_Framework_TestCase {
 
         $turing3 = new Turing($states, $transitions, clone $tape1); // go to 3
         $turing3->end();
-        $this->assertEquals("accepted", $turing3->getCurrentState()->getType());
+        $this->assertEquals("accepted", $turing3->getActualState());
+    }
+
+    public function testNoStartMachine() {
+        $states = new StateCollection();
+        $states->addState(2, "state");
+        $states->addState(3, "accepted");
+
+        $transitions = new TransitionCollection();
+        $transitions->addTransition(2, '0', 1, 'x', 'L');
+        $transitions->addTransition(3, '0', 1, 'x', 'L');
+
+        $tape1 = new Tape("01");
+
+        $turing1 = new Turing($states, $transitions, clone $tape1);
+        $turing1->end();
+        $this->assertEquals("No state", $turing1->getActualState());
     }
 
     public function testWrongMachine() {
@@ -49,14 +65,14 @@ class TuringTest extends PHPUnit_Framework_TestCase {
         $states->addState(3, "accepted");
 
         $transitions = new TransitionCollection();
-        $transitions->addTransition(1, '0', 1, 'x', 'L');
-        $transitions->addTransition(1, '0', 1, 'x', 'L');
+        $transitions->addTransition(2, '0', 1, 'x', 'L');
+        $transitions->addTransition(3, '0', 1, 'x', 'L');
 
         $tape1 = new Tape("01");
 
         $turing1 = new Turing($states, $transitions, clone $tape1);
         $turing1->end();
-        $this->assertEquals("start", $turing1->getCurrentState()->getType());
+        $this->assertEquals("start", $turing1->getActualState());
     }
 
     // Start with 0, end with 1

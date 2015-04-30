@@ -12,6 +12,24 @@ class StateCollectionTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals(4, $states->getNumberOfStates());
     }
 
+    public function testNoStart() {
+        $states = new StateCollection();
+        $states->addState(2, "state");
+        $states->addState(3, "accepted");
+        $states->addState(4, "rejected");
+
+        $startState = $states->findStartState();
+
+        $this->assertEquals(NULL, $startState);
+        // if (is_null($startState)) {
+        //     $this->fail('No state');
+        // }
+        // else {
+        //     $this->assertEquals("accepted", $startState->getType());
+        //     $this->assertEquals(3, $startState->getID());
+        // }
+    }
+
     public function testFind() {
         $states = new StateCollection();
         $states->addState(2, "state");

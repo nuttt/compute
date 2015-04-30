@@ -23,6 +23,7 @@ class Turing {
     }
 
     public function next() {
+        if ($this->currentState === NULL) return;
         if ($this->currentState->getType() == "halt" ||
             $this->currentState->getType() == "accepted" ||
             $this->currentState->getType() == "rejected" ||
@@ -55,6 +56,7 @@ class Turing {
     }
 
     public function end() {
+        if ($this->currentState === NULL) return;
         $cnt = 0;
         while($this->currentState->getType() != "halt" &&
               $this->currentState->getType() != "accepted" && 
@@ -94,6 +96,7 @@ class Turing {
     }
 
     public function getResult() {
+        if ($this->currentState === null) return "rejected";
         if ($this->currentState->getType() == "accepted") {
             return "accepted";
         }
@@ -102,10 +105,11 @@ class Turing {
         }
     }
 
-    public function getActual() {
+    public function getActualState() {
         if ($this->loop) {
             return "loop";
         }
+        if ($this->currentState === null) return "No state";
         return $this->currentState->getType();
     }
 }

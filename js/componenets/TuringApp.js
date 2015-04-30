@@ -48,6 +48,7 @@ var TuringApp = React.createClass({
       return {
         id: this.state.currentProblem,
         turing: {
+          hash: 1,
           states: states,
           transitions: transitions
         }

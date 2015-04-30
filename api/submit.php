@@ -9,13 +9,17 @@ $turing_decode = $_POST['turing'];
 
 // Create State and transition
 $states = new StateCollection();
-foreach($turing_decode["states"] as $state) {
-    $states->addState($state["id"], $state["type"]);
+if (array_key_exists('states', $turing_decode)) {
+    foreach($turing_decode["states"] as $state) {
+        $states->addState($state["id"], $state["type"]);
+    }
 }
 
 $transitions = new TransitionCollection();
-foreach($turing_decode["transitions"] as $t) {    
-    $transitions->addTransition($t["from"], $t["input"], $t["to"], $t["write"], $t["direction"]);
+if (array_key_exists('transitions', $turing_decode)) {
+    foreach($turing_decode["transitions"] as $t) {    
+        $transitions->addTransition($t["from"], $t["input"], $t["to"], $t["write"], $t["direction"]);
+    }
 }
 
 $passAll = true;
@@ -34,7 +38,7 @@ for($i = 1 ; $i <= $totalTestcases ; $i++) {
             $return = array('id' => $id,
                             'input' => $input,
                             'expected' => $expected,
-                            'actual' => $turing_obj->getActual(),
+                            'actual' => $turing_obj->getActualState(),
                             'status' => 'wrong'
                             );
             echo json_encode($return); 
