@@ -25,7 +25,7 @@ nav
     padding: 8px 10px;
 
     color: white; 
-    background-color: rgba(0, 0, 0, .8);
+    background-color: #303030;
 }
 nav:after
 {
@@ -80,7 +80,7 @@ nav:after
     padding: 8px 10px;
 
     color: white; 
-    background-color: rgba(0, 0, 0, .8);
+    background-color: #303030;
 }
 #toolbar:after
 {
