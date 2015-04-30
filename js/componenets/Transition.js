@@ -10,7 +10,8 @@ var Transition = React.createClass({
 
   render: function(){
     var classes = React.addons.classSet({
-      'transition': true
+      'transition': true,
+      'selected': this.props.selected
     });
     
     var margin = 5;
@@ -70,7 +71,7 @@ var Transition = React.createClass({
 
     var lineColor = "#e74c3c";
     if (this.props.selected) {
-      lineColor = "#00ffff";
+      lineColor = "#39d5ff";
     }
 
     var nameDiv = "";
@@ -90,16 +91,16 @@ var Transition = React.createClass({
     // console.log("boxShiftY: " + boxShiftY);
 
     var labelHeight = 20;
-    var labelWidth = 40;
+    var labelWidth = 55;
     if (!this.props.mouseEffect) {
       var styleDiv = {
         position: "absolute",
         top: centerY - labelHeight / 2 + shiftY - this.props.offsetY,
         left: centerX - labelWidth * this.props.config.length / 2 + shiftX - this.props.offsetX,
-        border: "#3498db 1px solid",
-        backgroundColor: "#3ee",
+        border: "#F39C12 1px solid",
+        backgroundColor: "#ffcf4b",
         padding: "0 10px",
-        zIndex: 50,
+        zIndex: 100,
         fontWeight: "bold",
         MozTransform: "rotate(" + boxDegree + "deg)",
         WebkitTransform: "rotate(" + boxDegree + "deg)",
@@ -115,7 +116,9 @@ var Transition = React.createClass({
         return content; 
       });
 
-      nameDiv = <div style={styleDiv}>{names.join(" || ")}</div>;
+      if (this.props.config.length > 0) {
+        nameDiv = <div style={styleDiv}>{names.join(" || ")}</div>;
+      }
     }
 
     return (

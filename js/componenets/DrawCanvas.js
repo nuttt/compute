@@ -102,6 +102,7 @@ var DrawCanvas = React.createClass({
                 offsetY={this.props.offsetY}
                 selected={this.props.selectElement == transition}
                 onMouseDown={this.props.handleMouseDownOnElement}
+                config={transition.config}
               />
             );
           }
