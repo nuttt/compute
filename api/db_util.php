@@ -97,4 +97,42 @@ function dbUtilGetCountTestcases($challengeId) {
     return $count;
 }
 
+function getChallenges() {
+    $db = dbUtil_connect();
+    if (is_null($db)) return false;
+    $q = "SELECT * FROM compute_challenges";
+
+    $challenges = [];
+    if ($result = mysqli_query($db, $q)) {
+        while($row = $result->fetch_assoc()) {
+            $challenges[] = [
+                            "id" => $row["id"],
+                            "title" => $row["name"],
+                            "detail" => $row["description"] 
+                        ];
+        }
+    }
+    return $challenges;
+}
+
+function getChallengeId($challengeId) {
+    $db = dbUtil_connect();
+    if (is_null($db)) return false;
+    $q = "SELECT * FROM compute_challenges
+            WHERE id=$challengeId";
+
+    $challenge = null;
+    if ($result = mysqli_query($db, $q)) {
+        while($row = $result->fetch_assoc()) {
+            $challenge = [
+                            "id" => $row["id"],
+                            "title" => $row["name"],
+                            "detail" => $row["description"] 
+                        ];
+            break;
+        }
+    }
+    return $challenge;
+}
+
 ?>
