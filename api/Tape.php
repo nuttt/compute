@@ -56,6 +56,17 @@ class Tape {
     }
 
     public function getPosition() {
+        $cnt = 0;
+        for($i = 0 ; $i < count($this->tape) ; $i++) {
+            if ($this->tape[$i] == ' ') {
+                unset($this->tape[$i]);
+                $cnt++;
+            }
+            else {
+                break;
+            }
+        }
+        $this->position -= $cnt;
         return $this->position;
     }
 

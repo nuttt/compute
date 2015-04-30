@@ -104,4 +104,29 @@ class TuringTest extends PHPUnit_Framework_TestCase {
         $turing1 = new Turing($states, $transitions, clone $tape2);
         $this->assertEquals("rejected", $turing1->getResult());
     }
+
+    // Swap 01
+    public function testSwap01() {
+        $states = new StateCollection();
+        $states->addState(0, "start");
+        $states->addState(1, "state");
+        $states->addState(2, "state");
+        $states->addState(3, "accepted");
+
+        $transitions = new TransitionCollection();
+        $transitions->addTransition(0, ' ', 1, ' ', 'R');
+        $transitions->addTransition(1, '0', 1, '1', 'R');
+        $transitions->addTransition(1, '1', 1, '0', 'R');
+        $transitions->addTransition(1, ' ', 2, ' ', 'L');
+        $transitions->addTransition(2, '1', 2, '1', 'L');
+        $transitions->addTransition(2, '0', 2, '0', 'L');
+        $transitions->addTransition(2, ' ', 3, ' ', 'S');
+
+        $tape1 = new Tape("0011");
+
+        $turing1 = new Turing($states, $transitions, clone $tape1);
+        $turing1->end();
+        $this->assertEquals("1100", trim($turing1->getTape()->toString()));
+        $this->assertEquals("-1", $turing1->getTape()->getPosition());
+    }
 }

@@ -38,7 +38,7 @@ var ProblemModal = React.createClass({
               <h4 className="modal-title" id="myModalLabel">{this.state.problem.id}. {this.state.problem.title}</h4>
             </div>
             <div className="modal-body">
-              {this.state.problem.detail}
+              <pre>{this.state.problem.detail}</pre>
             </div>
           </div>
         </div>
