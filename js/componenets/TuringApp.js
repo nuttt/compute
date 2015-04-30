@@ -55,7 +55,26 @@ var TuringApp = React.createClass({
     },
 
     handleSubmit: function() {
-      console.log(this.convertToTuringFormat());
+      var turing = this.convertToTuringFormat();
+      console.log(turing);
+      NProgress.start();
+      // $.notify({
+      //   // options
+      //   message: 'Hello World' 
+      // },{
+      //   // settings
+      //   type: 'danger'
+      // });
+      $.ajax({
+        url: "api/submit.php",
+        dataType: "json",
+        method: "post",
+        data: turing,
+        success: function(res){
+          console.log(res);
+          NProgress.done();
+        }.bind(this)
+      });
     },
 
     changeTool: function(tool) {

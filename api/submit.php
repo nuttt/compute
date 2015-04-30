@@ -3,9 +3,9 @@
 require_once('autoload.php');
 
 $id = $_POST['id'];
-$turing_json = $_POST['turing'];
+$turing_decode = $_POST['turing'];
 
-$turing_decode = json_decode($turing_json, true);
+// $turing_decode = json_decode($turing_json, true);
 
 // Create State and transition
 $states = new StateCollection();

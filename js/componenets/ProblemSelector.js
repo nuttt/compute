@@ -12,7 +12,6 @@ var ProblemSelector = React.createClass({
       dataType: "json",
       method: "get",
       success: function(problems){
-        console.log(problems);
         this.setState({
           problems: problems
         });

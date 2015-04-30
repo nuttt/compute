@@ -15,7 +15,6 @@ var ProblemModal = React.createClass({
         id: id
       },
       success: function(problem){
-        console.log(problem);
         this.setState({
           problem: problem
         });
