@@ -1,5 +1,16 @@
 # compute-webprog
 
+Compute is an experimental web application project. We try to buid a GUI Turing Machine drawer, simulator, and grader. You can draw a state diagram of turing machine by using mouse. Then, you can test your Turing Machine by submitting to the grader.
+
+Stack
+- PHP
+- React.js
+
+Note: our code is very mess since it's our first time using React.js
+
+## Screenshot
+![image](screenshot.gif)
+
 ## Convention
 
 - Database Name: `compute_nocamelcase`
