@@ -8,7 +8,7 @@ Stack
 
 Author
 - Nuttapon Pattanavijit (nuttt)
-- Nasakol (nasakol)
+- Nasakol Pongkorpsakol (nasakol)
 
 Note: our code is very mess since it's our first time using React.js
 
