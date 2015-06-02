@@ -13,6 +13,7 @@ Author
 - Nasakol Pongkorpsakol (nasakol)
 
 Note: our code is very mess since it's our first time using React.js
+Note2: works on Chrome only!
 
 ## Screenshot
 ![image](screenshot.gif)
