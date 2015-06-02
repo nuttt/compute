@@ -6,16 +6,15 @@ Stack
 - PHP
 - React.js
 
+Author
+- Nuttapon Pattanavijit (nuttt)
+- Nasakol (nasakol)
+
 Note: our code is very mess since it's our first time using React.js
 
 ## Screenshot
 ![image](screenshot.gif)
 
-## Convention
-
-- Database Name: `compute_nocamelcase`
-- PHP: `$camelCase`
-- PHP Class: `CapitalCamelCase`
 
 ## APIs
 
