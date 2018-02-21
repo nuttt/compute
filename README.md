@@ -2,7 +2,7 @@
 
 Compute is an experimental web application project. We try to buid a GUI Turing Machine drawer, simulator, and grader. You can draw a state diagram of turing machine by using mouse. Then, you can test your Turing Machine by submitting to the grader.
 
-[Demo Here](http://compute2.azurewebsites.net/) (currently Thai language only, Sorry)
+~~[Demo Here](http://compute2.azurewebsites.net/) (currently Thai language only, Sorry)~~
 
 Stack
 - PHP
